@@ -38,9 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: bg
     uniqueID: 659380531
     locked: 0
@@ -49,4 +46,7 @@ TagManager:
     locked: 0
   - name: blocks
     uniqueID: 1281083087
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0

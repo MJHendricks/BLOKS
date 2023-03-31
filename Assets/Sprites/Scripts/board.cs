@@ -1,14 +1,82 @@
 ﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class board : MonoBehaviour
 {
     public shapeData[] shapes;
+    public Tilemap tilemap { get; private set; }
+    public piece active { get; private set; }
+    public Vector3Int spawnpoint;
+    public Vector2Int boardSize = new Vector2Int(10, 20);
+
+    public RectInt Bounds
+    {
+        get
+        {
+            Vector2Int pos = new Vector2Int(-this.boardSize.x / 2, -this.boardSize.y / 2);
+            return new RectInt(pos, boardSize);
+        }
+    }
 
     private void Awake()
     {
-        for (int i = 0; i < this.shapes.length; i++)
+        this.tilemap = GetComponentInChildren<Tilemap>();
+        this.active = GetComponentInChildren<piece>();
+        
+
+        for (int i = 0; i < this.shapes.Length; i++)
         {
             this.shapes[i].init();
         }
+    }
+
+    private void Start()
+    {
+        SpawnPiece();
+    }
+
+    private void SpawnPiece()
+    {
+        int random = Random.Range(0, this.shapes.Length);
+        shapeData data = this.shapes[random];
+        this.active.init(this, this.spawnpoint, data);
+        Set(this.active);
+    }
+
+    public void Set(piece p )
+    {
+        for (int i = 0; i< p.cells.Length; i++)
+        {
+            Vector3Int tilePos = p.cells[i] + p.pos;
+            this.tilemap.SetTile(tilePos, p.data.tile);
+        }
+    }
+
+    public void Clear(piece p)
+    {
+        for (int i = 0; i < p.cells.Length; i++)
+        {
+            Vector3Int tilePos = p.cells[i] + p.pos;
+            this.tilemap.SetTile(tilePos, null);
+        }
+    }
+
+    public bool isValidPos(piece p, Vector3Int pos)
+    {
+        RectInt bounds = this.Bounds;
+        for (int i = 0; i < p.cells.Length; i++)
+        {
+            Vector3Int tilePos = p.cells[i] + pos;
+            if (!bounds.Contains((Vector2Int)tilePos))
+            {
+                return false;
+            }
+            if (this.tilemap.HasTile(tilePos))
+            {
+                return false;
+            }
+
+        }
+        return true; 
     }
 }
