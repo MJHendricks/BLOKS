@@ -1,2 +1,2 @@
 # vprblocks
-# retro style arcade game
+retro style arcade game
