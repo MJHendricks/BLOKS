@@ -29,21 +29,21 @@ public class piece : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q)) //rotate anticlockwise?
         {
             Rotate(-1);
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E)) // rotate clockwise
         {
             Rotate(1);
         }
 
         this.board.Clear(this);
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A)) //move piece to the left
         {
             Move(Vector2Int.left);
         }
-        else if (Input.GetKeyDown(KeyCode.D)) {
+        else if (Input.GetKeyDown(KeyCode.D)) { //move piece to the right
             Move(Vector2Int.right);
         }
         if (Input.GetKeyDown(KeyCode.S))
