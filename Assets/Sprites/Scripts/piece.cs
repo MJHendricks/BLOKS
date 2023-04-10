@@ -29,6 +29,7 @@ public class piece : MonoBehaviour
 
     private void Update()
     {
+        this.board.Clear(this);
         if (Input.GetKeyDown(KeyCode.Q)) //rotate anticlockwise?
         {
             Rotate(-1);
@@ -82,13 +83,42 @@ public class piece : MonoBehaviour
 
     private void Rotate(int dir) // rotate pieces 
     {
+        int initRotation = this.rotationIndex;
         this.rotationIndex = Wrap(this.rotationIndex + dir, 0, 4);
 
-        for (int i  = 0; i < this.cells.Length; i++)
+        ApplyRotation(dir);
+
+        if (!TestKicks(this.rotationIndex, dir))
+        {
+            this.rotationIndex = initRotation;
+            ApplyRotation(-dir);
+        }
+    }
+
+    private void ApplyRotation(int dir) //all the code for rotating blocks
+    {
+        for (int i = 0; i < this.cells.Length; i++)
         {
             Vector3 cell = this.cells[i];
 
             int x, y;
+
+            switch (this.data.shape)
+            {
+                case Shapes.I:
+                case Shapes.O:
+                    cell.x -= 0.5f;
+                    cell.y -= 0.5f;
+                    x = Mathf.CeilToInt((cell.x * Data.RotationMatrix[0] * dir) + (cell.y * Data.RotationMatrix[1] * dir));
+                    y = Mathf.CeilToInt((cell.x * Data.RotationMatrix[2] * dir) + (cell.y * Data.RotationMatrix[3] * dir));
+
+                    break;
+                default:
+                    x = Mathf.RoundToInt((cell.x * Data.RotationMatrix[0] * dir) + (cell.y * Data.RotationMatrix[1] * dir));
+                    y = Mathf.RoundToInt((cell.x * Data.RotationMatrix[2] * dir) + (cell.y * Data.RotationMatrix[3] * dir));
+                    break;
+            }
+            this.cells[i] = new Vector3Int(x, y, 0);
         }
     }
 
@@ -102,5 +132,29 @@ public class piece : MonoBehaviour
         {
             return min + (input - min) % (max - min);
         }
+    }
+
+    private int GetWallKickIndex(int rotationIndex, int rotationdir)
+    {
+        int wallKickIndex = rotationIndex * 2;
+        if (rotationIndex < 0)
+        {
+            wallKickIndex--;
+        }
+        return Wrap(wallKickIndex, 0 , this.data.wallKicks.GetLength(0));
+    }
+
+    private bool TestKicks(int rotationIndex, int rotationdir)
+    {
+        int wallKickIndex = GetWallKickIndex(rotationIndex, rotationdir);
+        for (int i = 0; i <  this.data.wallKicks.GetLength(1); i++)
+        {
+            Vector2Int translation = this.data.wallKicks[wallKickIndex, i];
+            if (Move(translation))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
