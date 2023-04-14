@@ -177,7 +177,7 @@ public class piece : MonoBehaviour
     {
         this.stepTime = Time.time + this.stepDelay;
         Move(Vector2Int.down);
-        stepDelay -= 0.002f;
+        stepDelay -= 0.001f;
 
         if (this.lockTime >= this.lockDelay)
         {

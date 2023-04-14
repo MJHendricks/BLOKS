@@ -62,29 +62,29 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 604}
+      Script: {instanceID: 608}
     - Class: 114
-      Script: {instanceID: 11188}
+      Script: {instanceID: 11192}
     - Class: 114
-      Script: {instanceID: 11456}
+      Script: {instanceID: 11460}
     - Class: 114
-      Script: {instanceID: 12126}
+      Script: {instanceID: 12130}
     - Class: 114
-      Script: {instanceID: 12392}
+      Script: {instanceID: 12396}
     - Class: 114
-      Script: {instanceID: 12932}
+      Script: {instanceID: 12936}
     - Class: 114
-      Script: {instanceID: 13028}
+      Script: {instanceID: 13032}
     - Class: 114
-      Script: {instanceID: 13044}
+      Script: {instanceID: 13048}
     - Class: 114
-      Script: {instanceID: 13400}
+      Script: {instanceID: 13188}
     - Class: 114
-      Script: {instanceID: 13654}
+      Script: {instanceID: 13406}
     - Class: 114
-      Script: {instanceID: 13726}
+      Script: {instanceID: 13660}
     - Class: 114
-      Script: {instanceID: 19152}
+      Script: {instanceID: 13732}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -442,6 +442,12 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
+      Hash: a4ca33da8f52527cee5a39d875f5485d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Score
+  - hash:
+      serializedVersion: 2
       Hash: 3b760e6526e13f7504f59e210145899a
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -578,13 +584,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: a4ca33da8f52527cee5a39d875f5485d
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Score
   platform: 19
   scenePathNames:
   - Assets/Scenes/Scene1.unity
-  playerPath: C:/Users/Matt/Desktop/BLOKS/New Unity Project.exe
+  playerPath: C:/Users/Matt/Desktop/Games/BLOKS/BLOKS.exe
