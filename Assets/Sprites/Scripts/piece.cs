@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using UnityEngine;
 
 public class piece : MonoBehaviour
@@ -9,7 +9,7 @@ public class piece : MonoBehaviour
     public Vector3Int pos {  get; private set; }
     public int rotationIndex { get; private set; }
 
-    public float stepDelay = 0.5f;
+    public float stepDelay = 0.8f;
     public float lockDelay = 0.5f;
 
     public float stepTime;
@@ -177,6 +177,7 @@ public class piece : MonoBehaviour
     {
         this.stepTime = Time.time + this.stepDelay;
         Move(Vector2Int.down);
+        stepDelay -= 0.002f;
 
         if (this.lockTime >= this.lockDelay)
         {

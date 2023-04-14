@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class board : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class board : MonoBehaviour
     public piece active { get; private set; }
     public Vector3Int spawnpoint;
     public Vector2Int boardSize = new Vector2Int(10, 20);
+    public Score score;
+    public Timer timer;
 
     public RectInt Bounds
     {
@@ -32,7 +35,9 @@ public class board : MonoBehaviour
 
     private void Start()
     {
+        Timer.instance.BeginTimer();
         SpawnPiece();
+
     }
 
     public void SpawnPiece()
@@ -55,6 +60,7 @@ public class board : MonoBehaviour
     private void GameOver()
     {
         this.tilemap.ClearAllTiles();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Set(piece p )
@@ -104,6 +110,8 @@ public class board : MonoBehaviour
             if(lineFull(row))
             {
                 LineClear(row);
+                score.UpdateScore();
+
             }
             else
             {

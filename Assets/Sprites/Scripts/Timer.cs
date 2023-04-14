@@ -1,37 +1,63 @@
 ﻿using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
+
 public class Timer : MonoBehaviour
 {
-    public float timeRemaining = 10;
-    public bool timerIsRunning = false;
-    public Text timeText;
+    public static Timer instance;
+    public Text timeCount;
+
+    private TimeSpan time;
+    private bool timeOn;
+    private float elapsed;
+
+    public float startTime;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
-        // Starts the timer automatically
-        timerIsRunning = true;
+        timeCount.text = "00:00";
+        timeOn = false;
     }
-    void Update()
+
+    public void BeginTimer()
     {
-        if (timerIsRunning)
+        timeOn = true;
+        startTime = Time.time;
+        elapsed = 0f;
+        StartCoroutine(UpdateTimer());
+
+    }
+
+    public void EndTimer()
+    {
+        timeOn = false;
+    }
+
+    private IEnumerator UpdateTimer()
+    {
+        while (timeOn) 
         {
-            if (timeRemaining > 0)
-            {
-                timeRemaining -= Time.deltaTime;
-                DisplayTime(timeRemaining);
-            }
-            else
-            {
-                Debug.Log("Time has run out!");
-                timeRemaining = 0;
-                timerIsRunning = false;
-            }
+            elapsed += Time.deltaTime;
+            time = TimeSpan.FromSeconds(elapsed);
+            string timePlayingString = time.ToString("mm' : 'ss");
+            timeCount.text = timePlayingString;
+
+            yield return null;
         }
     }
-    void DisplayTime(float timeToDisplay)
+
+    public void ResetTimer()
     {
-        timeToDisplay += 1;
-        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timeCount.text = "00:00";
+        timeOn = false;
+        elapsed = 0f;
+        BeginTimer();
     }
 }
