@@ -1,5 +1,5 @@
 # BLOKS
-retro style Tetris-based game made for educational purposes. 
+Retro style Tetris-based game made for educational purposes. 
 Contains a lot of useful reusable code to speed up future projects. 
 
 If you would like to play the game the controls are as follows:
